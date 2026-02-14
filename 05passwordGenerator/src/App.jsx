@@ -84,7 +84,7 @@ function App() {
           >Copy</button>
         </div>
 
-        <div className='text-sm flex gap-x-2'>
+        <div className='text-sm flex flex-col gap-y-2 mt-4'>
           <div className='flex items-center gap-x-1'>
             <input
               type="range"
