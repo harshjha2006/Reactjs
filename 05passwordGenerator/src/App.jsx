@@ -4,6 +4,8 @@ function App() {
   const [lenght, setLenght] = useState(8);
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
+  const [capsOnly, setCapsOnly] = useState(false);
+  const [smallOnly, setSmallOnly] = useState(false);
   const [password, setPassword] = useState("");
 
   const passwordRef = useRef(null);
@@ -21,6 +23,22 @@ function App() {
       str += "!@#$%&*()_"
     }
 
+    if (capsOnly) {
+     str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+     console.log(str);
+     setSmallOnly(false) // i first use here smallOnly = false ; goted constatn error then i get it what is the problem it was easy and explainable
+    //  console.log(smallOnly);
+     
+     
+    } 
+    if (smallOnly) {
+     str = "abcdefghijklmnopqrstuvwxyz"
+     console.log(str);
+     setCapsOnly(false)
+     
+    } 
+    
+
     for (let i = 1; i <= lenght; i++) {
 
       const char = Math.floor(Math.random() * str.length + 1)
@@ -29,7 +47,7 @@ function App() {
     setPassword(pass)
 
   },
-    [lenght, charAllowed, numberAllowed]
+    [lenght, charAllowed,capsOnly,smallOnly, numberAllowed]
   )
 
   useEffect(() => {
@@ -47,7 +65,7 @@ function App() {
 
   return (
     <>
-      <div className='w-full max-w-md mx-auto shadow-lg rounded-lg px-8 py-3 my-8 text-orange-400 bg-gray-700'>
+      <div className='w-full max-w-md mx-auto shadow-lg rounded-lg px-8 py-4 my-8 text-orange-400 bg-gray-700'>
         <h1 className='text-white text-center'>Password Generator</h1>
         <div className='flex rounded-lg shadow mb-4 overflow-hidden'>
           <input
@@ -97,6 +115,24 @@ function App() {
               onChange={() => {setCharAllowed((previousValue) => !previousValue)}}
             />
             <label>Symbols</label>
+          </div>
+          <div className='flex items-center gap-x-1'>
+            <input
+              type="checkbox"
+              checked={capsOnly}
+              id='charInput'
+              onChange={() => {setCapsOnly((previousValue) => !previousValue)}}
+            />
+            <label>CAPS ONLY</label>
+          </div>
+          <div className='flex items-center gap-x-1'>
+            <input
+              type="checkbox"
+              checked={smallOnly}
+              id='charInput'
+              onChange={() => {setSmallOnly((previousValue) => !previousValue)}}
+            />
+            <label>SMALL ONLY</label>
           </div>
         </div>
 
