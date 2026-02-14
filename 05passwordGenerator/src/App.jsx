@@ -1,10 +1,13 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect,useRef } from 'react'
 
 function App() {
   const [lenght, setLenght] = useState(8);
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
+
+  const passwordRef = useRef(null);
+
 
   const passwordGenerator = useCallback(() => {
     let pass = ""
@@ -34,6 +37,14 @@ function App() {
   }, [lenght, numberAllowed, charAllowed, passwordGenerator]
   )
 
+  const copyToClipBord = useCallback(() => {
+    passwordRef.current?.select();
+    // passwordRef.current?.setSelectionRange(0,10);  // this method use for set the rand of selection 
+    window.navigator.clipboard.writeText(password)
+
+  },[password])
+
+
   return (
     <>
       <div className='w-full max-w-md mx-auto shadow-lg rounded-lg px-8 py-3 my-8 text-orange-400 bg-gray-700'>
@@ -45,9 +56,14 @@ function App() {
             className='outline-none py-1 px-3 w-full  bg-white'
             placeholder='Password'
             readOnly
-
+            ref={passwordRef}
           />
-          <button className='bg-blue-700 outline-none shrink-0 text-white px-2'>Copy</button>
+          <button
+           onClick={copyToClipBord}
+           className='bg-blue-700 outline-none shrink-0 text-white px-2'
+          
+
+          >Copy</button>
         </div>
 
         <div className='text-sm flex gap-x-2'>
