@@ -18,4 +18,4 @@ import { useState, useEffect } from "react";
 
 }
 
-export default useCurrencyInfo
+export default useCurrencyInfo  
